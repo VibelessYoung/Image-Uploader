@@ -24,7 +24,7 @@ function FileUpload() {
   };
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-zinc-900 via-slate-900 to-black">
+    <div className="h-screen overflow-hidden flex items-center justify-center bg-gradient-to-br from-zinc-900 via-slate-900 to-black">
       <div className="w-[380px] p-6 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7)] animate-fadeIn">
         <h1 className="text-white text-2xl font-bold text-center mb-6">
           UPLOAD PICTURE
@@ -68,7 +68,7 @@ function FileUpload() {
         )}
 
         {/* Progress Bar */}
-        {file && <Progress value={progress} />}
+        {file && progress > 0 && <Progress value={progress} file={file} />}
 
         {/* Button */}
         <button

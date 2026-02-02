@@ -1,8 +1,9 @@
 import React from "react";
 
-function Progress({ value }) {
+function Progress({ value, file }) {
+  const show = file && value > 0;
   return (
-    <div className="mt-4">
+    <div className={`mt-4 ${show ? "" : "hidden"}`}>
       {/* Background */}
       <div className="h-3 w-full bg-white/20 rounded-full overflow-hidden">
         {/* Fill */}
