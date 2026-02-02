@@ -1,4 +1,5 @@
 import { useState } from "react";
+import Progress from "./Progress";
 
 function FileUpload() {
   const [file, setFile] = useState(null);
@@ -11,7 +12,6 @@ function FileUpload() {
     setFile(selectedFile);
     setProgress(0);
 
-    // فیک پروگرس برای دیزاین (بعداً می‌تونی وصلش کنی به API)
     let value = 0;
     const interval = setInterval(() => {
       value += Math.random() * 12;
@@ -52,9 +52,7 @@ function FileUpload() {
             />
           </svg>
 
-          <p className="text-white/80 text-sm">
-          click or drop a file here...
-          </p>
+          <p className="text-white/80 text-sm">click or drop a file here...</p>
 
           <input
             type="file"
@@ -70,18 +68,7 @@ function FileUpload() {
         )}
 
         {/* Progress Bar */}
-        {file && (
-          <div className="mt-4">
-            <div className="h-3 w-full bg-white/20 rounded-full overflow-hidden">
-              <div
-                className="h-full bg-gradient-to-r from-indigo-500 to-pink-500
-                           transition-all duration-300"
-                style={{ width: `${progress}%` }}
-              />
-            </div>
-            <p className="text-right text-xs text-white/70 mt-1">{progress}%</p>
-          </div>
-        )}
+        {file && <Progress value={progress} />}
 
         {/* Button */}
         <button
