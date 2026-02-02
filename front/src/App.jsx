@@ -1,7 +1,14 @@
 import React from "react";
+import FileUpload from "./components/FileUpload";
+import Progress from "./components/Progress";
 
 function App() {
-  return <div className="bg-red-500 text-white text-2xl">jdjjdjd</div>;
+  return (
+    <div>
+      <FileUpload />
+      <Progress />
+    </div>
+  );
 }
 
 export default App;
