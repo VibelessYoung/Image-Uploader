@@ -5,6 +5,9 @@ import axios from "axios";
 function FileUpload() {
   const [file, setFile] = useState(null);
   const [progress, setProgress] = useState(0);
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState(null);
+  const [success, setSuccess] = useState(null);
 
   const handleFileChange = (e) => {
     const selectedFile = e.target.files[0];
@@ -24,18 +27,60 @@ function FileUpload() {
     }, 300);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
+
+    if (!file) {
+      setError("هیچ فایلی انتخاب نشده");
+      return;
+    }
+
     const formData = new FormData();
     formData.append("image", file);
-    axios.post("http://127.0.0.1:8000/api/upload", formData, {
-      onUploadProgress: (progressEvent) => {
-        const percent = Math.round(
-          (progressEvent.loaded * 100) / progressEvent.total,
-        );
-        setProgress(percent);
-      },
-    });
+
+    try {
+      setError(null);
+      setProgress(0);
+      setUploading(true);
+
+      const response = await axios.post(
+        "http://127.0.0.1:8000/api/upload",
+        formData,
+        {
+          timeout: 20000,
+          onUploadProgress: (progressEvent) => {
+            if (!progressEvent.total) return;
+
+            const percent = Math.round(
+              (progressEvent.loaded * 100) / progressEvent.total,
+            );
+
+            setProgress(percent);
+          },
+        },
+      );
+
+      console.log("Upload success:", response.data);
+      setSuccess("فایل با موفقیت آپلود شد ✅");
+    } catch (err) {
+      if (!err.response) {
+        setError("اتصال به سرور برقرار نشد 🌐");
+        return;
+      }
+
+      const status = err.response.status;
+      if (status === 413) {
+        setError("حجم فایل بیش از حد مجازه");
+      } else if (status === 422) {
+        setError("فرمت فایل معتبر نیست");
+      } else if (status >= 500) {
+        setError("خطای داخلی سرور");
+      } else {
+        setError("آپلود ناموفق بود");
+      }
+    } finally {
+      setUploading(false);
+    }
   };
 
   return (
@@ -99,6 +144,13 @@ function FileUpload() {
         >
           SEND🚀
         </button>
+        {error && (
+          <p className="mt-3 text-sm text-red-400 text-center">{error}</p>
+        )}
+
+        {success && (
+          <p className="mt-3 text-sm text-green-400 text-center">{success}</p>
+        )}
       </form>
     </div>
   );
