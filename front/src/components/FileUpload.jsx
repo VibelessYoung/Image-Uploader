@@ -1,5 +1,6 @@
 import { useState } from "react";
 import Progress from "./Progress";
+import axios from "axios";
 
 function FileUpload() {
   const [file, setFile] = useState(null);
@@ -23,9 +24,26 @@ function FileUpload() {
     }, 300);
   };
 
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const formData = new FormData();
+    formData.append("image", file);
+    axios.post("http://127.0.0.1:8000/api/upload", formData, {
+      onUploadProgress: (progressEvent) => {
+        const percent = Math.round(
+          (progressEvent.loaded * 100) / progressEvent.total,
+        );
+        setProgress(percent);
+      },
+    });
+  };
+
   return (
     <div className="min-h-1/2 p-32 flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 via-slate-900 to-black">
-      <div className="w-[380px] p-6 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7)] animate-fadeIn">
+      <form
+        onSubmit={handleSubmit}
+        className="w-[380px] p-6 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7)] animate-fadeIn"
+      >
         <h1 className="text-white text-2xl font-bold text-center mb-6">
           UPLOAD PICTURE
         </h1>
@@ -55,6 +73,7 @@ function FileUpload() {
           <p className="text-white/80 text-sm">click or drop a file here...</p>
 
           <input
+            name="image"
             type="file"
             className="hidden"
             onChange={handleFileChange}
@@ -80,7 +99,7 @@ function FileUpload() {
         >
           SEND🚀
         </button>
-      </div>
+      </form>
     </div>
   );
 }
