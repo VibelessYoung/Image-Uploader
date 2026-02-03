@@ -23,6 +23,7 @@ function Content() {
   if (error) {
     return <p className="text-red-400 text-center mt-6">{error}</p>;
   }
+  
 
   return (
     <div className="px-4 py-10 mx-auto bg-gradient-to-br from-zinc-900 via-slate-900 to-black">
