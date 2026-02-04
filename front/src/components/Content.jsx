@@ -22,14 +22,14 @@ function Content() {
 
   if (error) {
     return (
-      <p className="text-red-400 text-center text-4xl pt-6 bg-gradient-to-br from-zinc-900 via-slate-900 to-black w-full h-[220px]">
+      <p className="text-red-400 text-center text-4xl pt-6 bg-gradient-to-tl from-zinc-900 via-slate-900 to-black w-full h-[220px]">
         {error}
       </p>
     );
   }
 
   return (
-    <div className="px-4 py-10 mx-auto bg-gradient-to-br from-zinc-900 via-slate-900 to-black">
+    <div className="px-4 py-10 mx-auto bg-gradient-to-tl from-black via-slate-900 to-zinc-900">
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {images.map((item, index) => (
           <div
