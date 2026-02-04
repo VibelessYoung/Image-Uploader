@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function Content() {
   const [images, setImages] = useState([]);
@@ -22,14 +23,31 @@ function Content() {
 
   if (error) {
     return (
-      <p className="text-red-400 text-center text-4xl pt-6 bg-gradient-to-tl from-zinc-900 via-slate-900 to-black w-full h-[220px]">
-        {error}
-      </p>
+      <div
+        className="h-screen flex flex-col gap-10 items-center justify-center
+                    bg-gradient-to-tl from-zinc-900 via-slate-900 to-black"
+      >
+        <p className="text-red-400 text-4xl text-center">{error}</p>
+        <Link
+          to="/"
+          className="px-6 py-3 rounded-2xl
+                   bg-white/10 backdrop-blur-xl
+                   border border-white/20
+                   text-white font-medium
+                   hover:bg-white/20 hover:border-indigo-400
+                   hover:scale-[1.05]
+                   active:scale-95
+                   transition-all duration-300
+                   shadow-lg"
+        >
+          ← برگشت به صفحه اصلی
+        </Link>
+      </div>
     );
   }
 
   return (
-    <div className="px-4 py-10 mx-auto bg-gradient-to-tl from-black via-slate-900 to-zinc-900">
+    <div className="px-4 py-10 mx-auto w-full h-screen bg-gradient-to-tl from-black via-slate-900 to-zinc-900">
       <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-4">
         {images.map((item, index) => (
           <div

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import Progress from "./Progress";
 import axios from "axios";
+import { Link } from "react-router-dom";
 
 function FileUpload() {
   const [file, setFile] = useState(null);
@@ -84,7 +85,7 @@ function FileUpload() {
   };
 
   return (
-    <div className="min-h-1/2 p-32 flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 via-slate-900 to-black">
+    <div className="h-screen p-32 flex flex-col items-center justify-center bg-gradient-to-br from-zinc-900 via-slate-900 to-black">
       <form
         onSubmit={handleSubmit}
         className="w-[380px] p-6 rounded-3xl bg-white/10 backdrop-blur-xl border border-white/20 shadow-[0_20px_60px_rgba(0,0,0,0.7)] animate-fadeIn"
@@ -152,6 +153,19 @@ function FileUpload() {
           <p className="mt-3 text-sm text-green-400 text-center">{success}</p>
         )}
       </form>
+      <Link
+        to="/content"
+        className="mt-10 px-6 py-3 rounded-2xl
+             bg-white/10 backdrop-blur-xl
+             border border-white/20
+             text-white
+             hover:bg-white/20 hover:border-indigo-400
+             hover:scale-[1.03]
+             transition-all duration-300
+             shadow-lg"
+      >
+        رفتن به صفحه تصاویر →
+      </Link>
     </div>
   );
 }

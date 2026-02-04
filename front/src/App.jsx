@@ -1,15 +1,15 @@
-import React from "react";
+import { BrowserRouter, Routes, Route } from "react-router-dom";
 import FileUpload from "./components/FileUpload";
-import Progress from "./components/Progress";
 import Content from "./components/Content";
 
 function App() {
   return (
-    <div>
-      <FileUpload />
-      <Progress />
-      <Content />
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path="/" element={<FileUpload />} />
+        <Route path="/content" element={<Content />} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 
