@@ -13,7 +13,7 @@ function Content() {
         setImages(res.data);
       } catch (err) {
         console.error(err);
-        setError("تصاویر بارگذاری نشدند");
+        setError("images unloaded , something wrong !");
       }
     };
 
@@ -21,9 +21,12 @@ function Content() {
   }, []);
 
   if (error) {
-    return <p className="text-red-400 text-center mt-6">{error}</p>;
+    return (
+      <p className="text-red-400 text-center text-4xl pt-6 bg-gradient-to-br from-zinc-900 via-slate-900 to-black w-full h-[220px]">
+        {error}
+      </p>
+    );
   }
-  
 
   return (
     <div className="px-4 py-10 mx-auto bg-gradient-to-br from-zinc-900 via-slate-900 to-black">
